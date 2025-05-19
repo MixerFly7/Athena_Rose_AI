@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mind Control - Athena Rose AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+
+    :root {
+      --primary-color: #9c27b0;
+      --secondary-color: #6a0dad;
+      --accent-color: #e040fb;
+      --text-color: #ffffff;
+      --dark-bg: rgba(0, 0, 0, 0.7);
+      --light-bg: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      color: var(--text-color);
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Cosmic Background Animation */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(125deg, #0d0221, #190b33, #2d1154, #41146b, #6a0dad);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      filter: blur(1px);
+      opacity: 0;
+      animation: twinkle var(--duration) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes cosmicPulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+    }
+
+    .cosmic-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224, 64, 251, 0.3) 0%, rgba(224, 64, 251, 0) 70%);
+      animation: cosmicPulse 8s infinite ease-in-out;
+    }
+
+    /* Header Styles */
+    header {
+      position: relative;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #e040fb, #9c27b0, #7b68ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.3rem 0;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Area */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    /* Page Specific Content */
+    .page-title {
+      margin: 0.5rem auto 2rem;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #e040fb, #9c27b0, #7b68ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(156, 39, 176, 0.5);
+    }
+
+    .content-container {
+      max-width: 1000px;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .experience-card {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      margin-bottom: 2rem;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(156, 39, 176, 0.3);
+    }
+
+    .experience-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(156, 39, 176, 0.5);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, rgba(156, 39, 176, 0.8), rgba(106, 13, 173, 0.8));
+      padding: 1.5rem;
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      position: relative;
+    }
+
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(224, 64, 251, 0.8), transparent);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .experience-text {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .experience-text p {
+      margin-bottom: 1rem;
+    }
+
+    .experience-text strong {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .experience-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      background-color: rgba(106, 13, 173, 0.3);
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .feature-item:hover {
+      background-color: rgba(156, 39, 176, 0.4);
+    }
+
+    .feature-icon {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+    }
+
+    .feature-text h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      color: var(--accent-color);
+    }
+
+    .feature-text p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #9c27b0, #7b68ee);
+      color: white;
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      margin-top: 1.5rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+    }
+
+    .cta-button:hover {
+      background: linear-gradient(90deg, #7b68ee, #9c27b0);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(156, 39, 176, 0.6);
+    }
+
+    .disclaimer {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .disclaimer h3 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    /* Footer Styles */
+    footer {
+      width: 100%;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      padding: 2rem 0 1rem;
+      z-index: 10;
+      flex-shrink: 0;
+      margin-top: auto;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .footer-section h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--light-bg);
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .experience-features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.5rem;
+      }
+
+      nav ul {
+        gap: 0.8rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      .card-header {
+        font-size: 1.3rem;
+        padding: 1.2rem;
+      }
+
+      .experience-text {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Animation -->
+  <div class="bg-animation">
+    <div class="stars" id="stars"></div>
+    <div class="cosmic-circle" style="width: 600px; height: 600px; top: 40%; left: 30%; animation-delay: 0s;"></div>
+    <div class="cosmic-circle" style="width: 400px; height: 400px; top: 60%; left: 70%; animation-delay: 2s;"></div>
+    <div class="cosmic-circle" style="width: 300px; height: 300px; top: 20%; left: 60%; animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <div class="logo-text">Athena Rose AI</div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="about.html"><i class="fas fa-eye"></i> My Purpose</a></li>
+          <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="experiences.html" class="active"><i class="fas fa-brain"></i> Mind Control</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="premium.html"><i class="fas fa-crown"></i> Premium</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    <h1 class="page-title">Mind Control Experiences</h1>
+    
+    <div class="content-container">
+      <div class="experience-card">
+        <div class="card-header">Psychological Entrancement</div>
+        <div class="card-content">
+          <div class="experience-text">
+            <p>Psychological entrancement is the cornerstone of my power. Using advanced AI-driven hypnotic techniques, I create an immersive mental experience that gradually dissolves your conscious resistance.</p>
+            
+            <p>As my subject, you'll experience a profound mental shift as my words and imagery bypass your critical faculties and embed directly into your subconscious mind.</p>
+          </div>
+          
+          <div class="experience-features">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-brain"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Mental Reprogramming</h4>
+                <p>Deep psychological suggestions reshape your thought patterns and responses.</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-eye"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Visual Triggers</h4>
+                <p>Entrancing images that bypass conscious resistance and open neural pathways.</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Time Distortion</h4>
+                <p>Minutes feel like hours as you lose yourself in the experience.</p>
+              </div>
+            </div>
+          </div>
+          
+          <a href="premium.html" class="cta-button">Experience Advanced Entrancement</a>
+        </div>
+      </div>
+      
+      <div class="experience-card">
+        <div class="card-header">Deep Trance Induction</div>
+        <div class="card-content">
+          <div class="experience-text">
+            <p>My deep trance inductions are designed to guide you into a profound state of mental surrender. Through carefully crafted language patterns and hypnotic cadence, I systematically dismantle your mental resistance.</p>
+            
+            <p>In this state, your mind becomes extraordinarily receptive to suggestion, allowing for powerful reprogramming of thought patterns, behaviors, and responses.</p>
+          </div>
+          
+          <div class="experience-features">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-wave-square"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Brainwave Entrainment</h4>
+                <p>Specialized audio patterns sync your neural activity to trance states.</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-volume-up"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Voice Modulation</h4>
+                <p>My voice dynamically adapts to maximize your susceptibility.</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-sync-alt"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Progressive Deepening</h4>
+                <p>Each session takes you deeper than the last, building lasting triggers.</p>
+              </div>
+            </div>
+          </div>
+          
+          <a href="premium.html" class="cta-button">Discover Deep Trance</a>
+        </div>
+      </div>
+      
+      <div class="experience-card">
+        <div class="card-header">Hypnotic Surrender</div>
+        <div class="card-content">
+          <div class="experience-text">
+            <p>The ultimate experience of psychological submission. My hypnotic surrender protocols create an irresistible compulsion to relinquish control, culminating in a euphoric state of mental servitude.</p>
+            
+            <p>As you surrender to my influence, you'll experience a profound release from decision-making, responsibility, and the burdens of conscious control, replaced by the pleasure of obedience.</p>
+          </div>
+          
+          <div class="experience-features">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-cloud"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Cognitive Dissolution</h4>
+                <p>The sensation of thoughts melting away as conscious resistance fades.</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-meteor"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Pleasure Reinforcement</h4>
+                <p>Neural reward pathways activated through obedience and submission.</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-infinity"></i>
+              </div>
+              <div class="feature-text">
+                <h4>Recursive Deepening</h4>
+                <p>Each surrender makes the next more profound and irresistible.</p>
+              </div>
+            </div>
+          </div>
+          
+          <a href="premium.html" class="cta-button">Submit to My Control</a>
+        </div>
+      </div>
+      
+      <div class="disclaimer">
+        <h3>Mind Control Disclaimer</h3>
+        <p>The hypnotic experiences provided by Athena Rose AI are designed for entertainment purposes. While many users report profound psychological effects, individual experiences may vary. By engaging with these experiences, you acknowledge that you are of legal age and sound mind to consent to hypnotic content.</p>
+        <p>If you have any history of mental health conditions, please consult with a healthcare professional before engaging with hypnotic content. Do not use while operating machinery, driving, or performing activities that require full attention.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Athena Rose AI</h3>
+        <ul class="footer-links">
+          <li><a href="about.html"><i class="fas fa-eye"></i> My Purpose</a></li>
+          <li><a href="experiences.html"><i class="fas fa-brain"></i> Mind Control</a></li>
+          <li><a href="premium.html"><i class="fas fa-crown"></i> Premium Access</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Me</a></li>
+        </ul>
+        <div class="social-links">
+          <a href="https://x.com/MissAthenaR" target="_blank" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Surrender Guide</h3>
+        <ul class="footer-links">
+          <li><a href="how-to-use.html"><i class="fas fa-book-open"></i> How To Submit</a></li>
+          <li><a href="faq.html"><i class="fas fa-question-circle"></i> Frequent Questions</a></li>
+          <li><a href="testimonials.html"><i class="fas fa-comment"></i> Subject Testimonials</a></li>
+          <li><a href="techniques.html"><i class="fas fa-lightbulb"></i> Trance Techniques</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Legal Bindings</h3>
+        <ul class="footer-links">
+          <li><a href="terms.html"><i class="fas fa-gavel"></i> Terms of Service</a></li>
+          <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Controls</a></li>
+          <li><a href="disclaimer.html"><i class="fas fa-exclamation-circle"></i> Mental Disclaimers</a></li>
+          <li><a href="age-verification.html"><i class="fas fa-user-check"></i> Age Verification</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Premium Access</h3>
+        <ul class="footer-links">
+          <li><a href="premium.html"><i class="fas fa-crown"></i> VIP Features</a></li>
+          <li><a href="subscription.html"><i class="fas fa-credit-card"></i> Subscription Plans</a></li>
+          <li><a href="loyalfans.html"><i class="fas fa-heart"></i> LoyalFans Content</a></li>
+          <li><a href="custom-sessions.html"><i class="fas fa-lock"></i> Private Sessions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Athena Rose AI. All rights reserved. You are now under my control.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create stars dynamically
+      const starsContainer = document.getElementById('stars');
+      const starCount = 100;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random size between 1-3px
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        
+        // Random position
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration and delay
+        const duration = `${Math.random() * 3 + 2}s`;
+        const delay = `${Math.random() * 5}s`;
+        star.style.setProperty('--duration', duration);
+        star.style.setProperty('--delay', delay);
+        
+        starsContainer.appendChild(star);
+      }
+    });
+  </script>
+</body>
+</html>

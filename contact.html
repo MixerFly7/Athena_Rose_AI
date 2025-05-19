@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Me - Athena Rose AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+
+    :root {
+      --primary-color: #9c27b0;
+      --secondary-color: #6a0dad;
+      --accent-color: #e040fb;
+      --text-color: #ffffff;
+      --dark-bg: rgba(0, 0, 0, 0.7);
+      --light-bg: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      color: var(--text-color);
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Cosmic Background Animation */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(125deg, #0d0221, #190b33, #2d1154, #41146b, #6a0dad);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      filter: blur(1px);
+      opacity: 0;
+      animation: twinkle var(--duration) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes cosmicPulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+    }
+
+    .cosmic-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224, 64, 251, 0.3) 0%, rgba(224, 64, 251, 0) 70%);
+      animation: cosmicPulse 8s infinite ease-in-out;
+    }
+
+    /* Header Styles */
+    header {
+      position: relative;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #e040fb, #9c27b0, #7b68ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.3rem 0;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Area */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    /* Page Specific Content */
+    .page-title {
+      margin: 0.5rem auto 2rem;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #e040fb, #9c27b0, #7b68ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(156, 39, 176, 0.5);
+    }
+
+    .intro-text {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      padding: 0 1.5rem;
+    }
+
+    .content-container {
+      max-width: 1200px;
+      width: 90%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    /* Contact Form Styles */
+    .contact-form-container {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(156, 39, 176, 0.3);
+    }
+
+    .form-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-color);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background-color: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(156, 39, 176, 0.5);
+      border-radius: 5px;
+      color: var(--text-color);
+      font-family: 'Raleway', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 10px rgba(156, 39, 176, 0.5);
+    }
+
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      display: inline-block;
+      background: linear-gradient(90deg, #9c27b0, #7b68ee);
+      color: white;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+      width: 100%;
+    }
+
+    .form-submit:hover {
+      background: linear-gradient(90deg, #7b68ee, #9c27b0);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(156, 39, 176, 0.6);
+    }
+
+    /* Contact Methods Styles */
+    .contact-methods-container {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(156, 39, 176, 0.3);
+    }
+
+    .methods-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-color);
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-method {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      background-color: rgba(106, 13, 173, 0.2);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-method:hover {
+      background-color: rgba(156, 39, 176, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+    }
+
+    .method-icon {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+    }
+
+    .method-details h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    .method-details p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .social-links-container {
+      margin-top: 2rem;
+    }
+
+    .social-links-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      font-size: 1.4rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+    }
+
+    .note-box {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background-color: rgba(106, 13, 173, 0.2);
+      border-radius: 10px;
+      border-left: 4px solid var(--accent-color);
+    }
+
+    .note-box p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Footer Styles */
+    footer {
+      width: 100%;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      padding: 2rem 0 1rem;
+      z-index: 10;
+      flex-shrink: 0;
+      margin-top: auto;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .footer-section h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer-social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .footer-social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .footer-social-link:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--light-bg);
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .content-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.5rem;
+      }
+
+      nav ul {
+        gap: 0.8rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      .page-title {
+        font-size: 2rem;
+      }
+
+      .form-title,
+      .methods-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Animation -->
+  <div class="bg-animation">
+    <div class="stars" id="stars"></div>
+    <div class="cosmic-circle" style="width: 600px; height: 600px; top: 40%; left: 30%; animation-delay: 0s;"></div>
+    <div class="cosmic-circle" style="width: 400px; height: 400px; top: 60%; left: 70%; animation-delay: 2s;"></div>
+    <div class="cosmic-circle" style="width: 300px; height: 300px; top: 20%; left: 60%; animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <div class="logo-text">Athena Rose AI</div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="about.html"><i class="fas fa-eye"></i> My Purpose</a></li>
+          <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="experiences.html"><i class="fas fa-brain"></i> Mind Control</a></li>
+          <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="premium.html"><i class="fas fa-crown"></i> Premium</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    <h1 class="page-title">Contact Me</h1>
+    
+    <p class="intro-text">
+      Ready to surrender your mind? Have questions about my hypnotic services? Or perhaps you desire a personalized trance experience? Reach out and let me infiltrate your thoughts.
+    </p>
+    
+    <div class="content-container">
+      <!-- Contact Form -->
+      <div class="contact-form-container">
+        <h2 class="form-title">Submit to My Influence</h2>
+        <form id="contact-form" action="#" method="POST">
+          <div class="form-group">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name..." class="form-input" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" class="form-label">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email..." class="form-input" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject" class="form-label">Subject</label>
+            <select id="subject" name="subject" class="form-input" required>
+              <option value="" disabled selected>Select a subject...</option>
+              <option value="general">General Inquiry</option>
+              <option value="session">Private Session Request</option>
+              <option value="custom">Custom Hypnotic Content</option>
+              <option value="technical">Technical Support</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea id="message" name="message" placeholder="Describe your desires, questions, or thoughts..." class="form-input form-textarea" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="consent" class="form-label">
+              <input type="checkbox" id="consent" name="consent" required>
+              I am of legal age and consent to receiving hypnotic content
+            </label>
+          </div>
+          
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+      
+      <!-- Contact Methods -->
+      <div class="contact-methods-container">
+        <h2 class="methods-title">Other Ways to Connect</h2>
+        
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="method-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="method-details">
+              <h3>Email</h3>
+              <p>For general inquiries and support:</p>
+              <p><a href="mailto:contact@athenarose.ai" style="color: var(--accent-color); text-decoration: none;">contact@athenarose.ai</a></p>
+            </div>
+          </div>
+          
+          <div class="contact-method">
+            <div class="method-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <div class="method-details">
+              <h3>Direct Messaging</h3>
+              <p>Premium members can access priority messaging through the member dashboard.</p>
+              <p><a href="premium.html" style="color: var(--accent-color); text-decoration: none;">Become a premium member</a></p>
+            </div>
+          </div>
+          
+          <div class="contact-method">
+            <div class="method-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <div class="method-details">
+              <h3>Support</h3>
+              <p>Need technical assistance or have account questions?</p>
+              <p><a href="mailto:support@athenarose.ai" style="color: var(--accent-color); text-decoration: none;">support@athenarose.ai</a></p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="social-links-container">
+          <h3 class="social-links-title">Social Media</h3>
+          <div class="social-links">
+            <a href="https://x.com/MissAthenaR" target="_blank" class="social-link" title="Twitter/X">
+              <i class="fab fa-x-twitter"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link" title="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link" title="YouTube">
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link" title="Discord">
+              <i class="fab fa-discord"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link" title="TikTok">
+              <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="#" target="_blank" class="social-link" title="OnlyFans">
+              <i class="fas fa-heart"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="note-box">
+          <p><strong>Note:</strong> Due to high volume, response times may vary. Premium members receive priority response. For immediate assistance, consider upgrading to a premium membership.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Athena Rose AI</h3>
+        <ul class="footer-links">
+          <li><a href="about.html"><i class="fas fa-eye"></i> My Purpose</a></li>
+          <li><a href="experiences.html"><i class="fas fa-brain"></i> Mind Control</a></li>
+          <li><a href="premium.html"><i class="fas fa-crown"></i> Premium Access</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Me</a></li>
+        </ul>
+        <div class="footer-social-links">
+          <a href="https://x.com/MissAthenaR" target="_blank" class="footer-social-link" title="Twitter/X">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+          <a href="#" target="_blank" class="footer-social-link" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" target="_blank" class="footer-social-link" title="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Surrender Guide</h3>
+        <ul class="footer-links">
+          <li><a href="how-to-use.html"><i class="fas fa-book-open"></i> How To Submit</a></li>
+          <li><a href="faq.html"><i class="fas fa-question-circle"></i> Frequent Questions</a></li>
+          <li><a href="testimonials.html"><i class="fas fa-comment"></i> Subject Testimonials</a></li>
+          <li><a href="techniques.html"><i class="fas fa-lightbulb"></i> Trance Techniques</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Legal Bindings</h3>
+        <ul class="footer-links">
+          <li><a href="terms.html"><i class="fas fa-gavel"></i> Terms of Service</a></li>
+          <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Controls</a></li>
+          <li><a href="disclaimer.html"><i class="fas fa-exclamation-circle"></i> Mental Disclaimers</a></li>
+          <li><a href="age-verification.html"><i class="fas fa-user-check"></i> Age Verification</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Premium Access</h3>
+        <ul class="footer-links">
+          <li><a href="premium.html"><i class="fas fa-crown"></i> VIP Features</a></li>
+          <li><a href="subscription.html"><i class="fas fa-credit-card"></i> Subscription Plans</a></li>
+          <li><a href="loyalfans.html"><i class="fas fa-heart"></i> LoyalFans Content</a></li>
+          <li><a href="custom-sessions.html"><i class="fas fa-lock"></i> Private Sessions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Athena Rose AI. All rights reserved. You are now under my control.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create stars dynamically
+      const starsContainer = document.getElementById('stars');
+      const starCount = 100;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random size between 1-3px
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        
+        // Random position
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration and delay
+        const duration = `${Math.random() * 3 + 2}s`;
+        const delay = `${Math.random() * 5}s`;
+        star.style.setProperty('--duration', duration);
+        star.style.setProperty('--delay', delay);
+        
+        starsContainer.appendChild(star);
+      }
+      
+      // Form handling (for demonstration)
+      const contactForm = document.getElementById('contact-form');
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // In a real environment, you would handle the form submission here
+        alert('Thank you for your message. I will be in your thoughts soon.');
+        contactForm.reset();
+      });
+    });
+  </script>
+</body>
+</html>

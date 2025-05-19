@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Athena Rose AI - Hypnotic Experience</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Load the Simli scripts early -->
+  <script src="https://shorturl.at/VlQtY" defer type="text/javascript"></script>
+  <script src="https://app.simli.com/simli-widget/index.js" defer type="text/javascript"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+
+    :root {
+      --primary-color: #9c27b0;
+      --secondary-color: #6a0dad;
+      --accent-color: #e040fb;
+      --text-color: #ffffff;
+      --dark-bg: rgba(0, 0, 0, 0.7);
+      --light-bg: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      color: var(--text-color);
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure body takes at least full viewport height */
+    }
+
+    /* Password Protection Screen */
+    #password-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .password-container {
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      padding: 2rem;
+    }
+
+    .password-field {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(224, 64, 251, 0.3);
+      color: white;
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.2rem;
+      padding: 10px 15px;
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      outline: none;
+      text-align: center;
+    }
+
+    .password-field:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 10px rgba(224, 64, 251, 0.3);
+    }
+
+    .enter-button {
+      background: linear-gradient(90deg, #9c27b0, #7b68ee);
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .enter-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(224, 64, 251, 0.3);
+    }
+
+    .dev-notice {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 20px;
+    }
+
+    .password-error {
+      color: #ff5252;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* Main content styling */
+    #main-content {
+      display: none; /* Initially hidden, will be set to flex when logged in */
+      min-height: 100vh; /* Ensure the content takes at least full viewport height */
+      flex-direction: column; /* Stack children vertically */
+    }
+    
+    /* Class for when content is visible */
+    .content-visible {
+      display: flex !important;
+    }
+
+    /* Cosmic Background Animation */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(125deg, #0d0221, #190b33, #2d1154, #41146b, #6a0dad);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      filter: blur(1px);
+      opacity: 0;
+      animation: twinkle var(--duration) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes cosmicPulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+    }
+
+    .cosmic-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224, 64, 251, 0.3) 0%, rgba(224, 64, 251, 0) 70%);
+      animation: cosmicPulse 8s infinite ease-in-out;
+    }
+
+    /* Header Styles */
+    header {
+      position: relative;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 40px;
+    }
+
+    .logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #e040fb, #9c27b0, #7b68ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.3rem 0;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Area */
+    main {
+      flex: 1 0 auto; /* Allow it to grow but not shrink, with auto basis */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 2rem 0;
+      min-height: 85vh; /* Increased minimum height to push footer down even further */
+    }
+
+    .avatar-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px; /* Ensure minimum height for avatar container */
+    }
+
+    simli-widget {
+      zoom: 1.5;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 50;
+    }
+
+    .avatar-loader {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 4;
+      color: var(--accent-color);
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .loader-spinner {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 15px;
+      border: 4px solid rgba(224, 64, 251, 0.3);
+      border-top: 4px solid var(--accent-color);
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .interaction-hint {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 30px;
+      font-size: 1rem;
+      text-align: center;
+      z-index: 4;
+      opacity: 0;
+      animation: fadeInOut 5s ease-in-out 3s;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      20%, 80% { opacity: 1; }
+    }
+
+    /* Decorative Elements */
+    .portal-ring {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border: 2px solid rgba(224, 64, 251, 0.3);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      box-shadow: 0 0 30px rgba(224, 64, 251, 0.2), inset 0 0 30px rgba(224, 64, 251, 0.2);
+      animation: rotate 20s linear infinite;
+    }
+
+    .portal-ring::before, .portal-ring::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .portal-ring::before {
+      width: 620px;
+      height: 620px;
+      border: 1px solid rgba(224, 64, 251, 0.2);
+      animation: rotate 15s linear infinite reverse;
+    }
+
+    .portal-ring::after {
+      width: 580px;
+      height: 580px;
+      border: 1px solid rgba(224, 64, 251, 0.2);
+      animation: rotate 25s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Footer Styles */
+    footer {
+      width: 100%;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      padding: 2rem 0 1rem;
+      z-index: 10;
+      flex-shrink: 0; /* Don't allow footer to shrink */
+      margin-top: auto; /* Push to bottom if content is short */
+      position: relative; /* Ensure it stays in the document flow */
+      bottom: 0; /* Stick to bottom */
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .footer-section h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--light-bg);
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .portal-ring, .portal-ring::before, .portal-ring::after {
+        width: 300px;
+        height: 300px;
+      }
+
+      .portal-ring::before {
+        width: 310px;
+        height: 310px;
+      }
+
+      .portal-ring::after {
+        width: 290px;
+        height: 290px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.5rem;
+      }
+
+      nav ul {
+        gap: 0.8rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Protection Screen -->
+  <div id="password-screen">
+    <div class="password-container">
+      <input type="password" id="password-input" class="password-field" placeholder="Enter Password" autocomplete="off">
+      <button id="enter-button" class="enter-button">Enter</button>
+      <div id="password-error" class="password-error">Incorrect password. Please try again.</div>
+      <div class="dev-notice">dev, not final</div>
+    </div>
+  </div>
+
+  <!-- Main Content (hidden until password is entered) -->
+  <div id="main-content">
+    <!-- Background Animation -->
+    <div class="bg-animation">
+      <div class="stars" id="stars"></div>
+      <div class="cosmic-circle" style="width: 600px; height: 600px; top: 40%; left: 30%; animation-delay: 0s;"></div>
+      <div class="cosmic-circle" style="width: 400px; height: 400px; top: 60%; left: 70%; animation-delay: 2s;"></div>
+      <div class="cosmic-circle" style="width: 300px; height: 300px; top: 20%; left: 60%; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <div class="logo-text">Athena Rose AI</div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html"><i class="fas fa-eye"></i> My Purpose</a></li>
+            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="experiences.html"><i class="fas fa-brain"></i> Mind Control</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="premium.html"><i class="fas fa-crown"></i> Premium</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+      <div class="avatar-container">
+        <div class="portal-ring"></div>
+        <!-- Avatar loader overlay -->
+        <div class="avatar-loader" id="avatarLoader">
+          <div class="loader-spinner"></div>
+          <div>Loading Athena...</div>
+        </div>
+        <div class="interaction-hint">Click "Surrender Now" to begin your journey...</div>
+        <simli-widget token="gAAAAABoKyIAjstv_t-1ytEL6E21aQKG8d5jJA9ggf0YWp3oLjXJRrVw7N9yVj9Xp7qCN4naVPeCPJa_qUHDbk4tv7ayC03McYRVX5n8VAHX5wA-O7Wg5dw2dTBg47qkm0pAILoyNPY_elANWtI_3nfQ70aaBk5W7VejOE9ND7yOqKz4vBWfO9JzIHdQxFjX1c7a3wJCR8HHx06B1X9UR85UDiK-RbfRqPtqPRFVGj212-MMdL6mNJvgt-ECWYYtGTx7RopyH8Tcyn7rkcsgF82NE454xQ0_gnX--q8saqnxTcEgnPMUL9rIAlggzABryZv3oFYuRxfna0K0-sneCJmJjbbmK4fdjDbrVabW9WcDMV0-Wnj9-fhtwX7L9BwyCHpOzhcDMWKylJeCSaNTjOt0vvhj4c1zy00HNF9egPOsbi-ElfLA5nq-HOSsrMP6SUEpES8_2EFOhSFo2uwHfIQ2s5tE-lm3s7qGk4BtnHhw0HPaObPdjrtdPUzMveRqqV0u7BOKDav9" agentid="8593587f-eb39-4a59-bfd9-9abb5781756f" position="right" customimage="https://i.postimg.cc/K4XHsdh1/AVVpng.png" customtext="Surrender Now"></simli-widget>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>Athena Rose AI</h3>
+          <ul class="footer-links">
+            <li><a href="about.html"><i class="fas fa-eye"></i> My Purpose</a></li>
+            <li><a href="experiences.html"><i class="fas fa-brain"></i> Mind Control</a></li>
+            <li><a href="premium.html"><i class="fas fa-crown"></i> Premium Access</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Me</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Surrender Guide</h3>
+          <ul class="footer-links">
+            <li><a href="how-to-use.html"><i class="fas fa-book-open"></i> How To Submit</a></li>
+            <li><a href="faq.html"><i class="fas fa-question-circle"></i> Frequent Questions</a></li>
+            <li><a href="testimonials.html"><i class="fas fa-comment"></i> Subject Testimonials</a></li>
+            <li><a href="techniques.html"><i class="fas fa-lightbulb"></i> Trance Techniques</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Legal Bindings</h3>
+          <ul class="footer-links">
+            <li><a href="terms.html"><i class="fas fa-gavel"></i> Terms of Service</a></li>
+            <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Controls</a></li>
+            <li><a href="disclaimer.html"><i class="fas fa-exclamation-circle"></i> Mental Disclaimers</a></li>
+            <li><a href="age-verification.html"><i class="fas fa-user-check"></i> Age Verification</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Premium Access</h3>
+          <ul class="footer-links">
+            <li><a href="premium.html"><i class="fas fa-crown"></i> VIP Features</a></li>
+            <li><a href="subscription.html"><i class="fas fa-credit-card"></i> Subscription Plans</a></li>
+            <li><a href="loyalfans.html"><i class="fas fa-heart"></i> LoyalFans Content</a></li>
+            <li><a href="custom-sessions.html"><i class="fas fa-lock"></i> Private Sessions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Athena Rose AI. All rights reserved. You are now under my control.
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Password protection logic
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hardcode the exact password for comparison
+      const CORRECT_PASSWORD = "ForGoddess";
+      const passwordScreen = document.getElementById('password-screen');
+      const mainContent = document.getElementById('main-content');
+      const passwordInput = document.getElementById('password-input');
+      const enterButton = document.getElementById('enter-button');
+      const passwordError = document.getElementById('password-error');
+      
+      // Show password error function
+      const showPasswordError = (message) => {
+        passwordError.textContent = message || "Incorrect password. Please try again.";
+        passwordError.style.display = 'block';
+        passwordError.style.color = '#ff5252';
+        passwordInput.value = '';
+        passwordInput.focus();
+      };
+      
+      // Check if already authenticated in this session
+      const isAuthenticated = sessionStorage.getItem('authenticated');
+      
+      if (isAuthenticated === 'true') {
+        passwordScreen.style.display = 'none';
+        mainContent.style.display = 'flex'; // Use flex instead of block to maintain layout
+        mainContent.classList.add('content-visible');
+        initializeMainContent();
+      }
+      
+      // Check password on button click
+      enterButton.addEventListener('click', checkPassword);
+      
+      // Also check password when Enter key is pressed
+      passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          checkPassword();
+        }
+      });
+      
+      function checkPassword() {
+        // Simplify validation to only compare against exact match
+        // This avoids issues with browser password managers or hidden characters
+        if (passwordInput.value === CORRECT_PASSWORD) {
+          console.log("Password accepted!");
+          // Store authentication in session storage
+          sessionStorage.setItem('authenticated', 'true');
+          
+          // Hide password screen and show main content
+          passwordScreen.style.display = 'none';
+          mainContent.style.display = 'flex'; // Use flex instead of block to maintain layout
+          mainContent.classList.add('content-visible');
+          
+          // Initialize main content elements
+          initializeMainContent();
+        } else {
+          // Add a debug line to see what's actually being entered
+          console.log("Password entered: '" + passwordInput.value + "'");
+          console.log("Length: " + passwordInput.value.length);
+          console.log("Expected: 'ForGoddess' (length: 10)");
+          
+          // Show error message
+          showPasswordError("Incorrect password. Please try again with 'ForGoddess'");
+        }
+      }
+      
+      function initializeMainContent() {
+        // Create stars dynamically
+        const starsContainer = document.getElementById('stars');
+        if (starsContainer) {
+          const starCount = 100;
+          
+          for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            // Random size between 1-3px
+            const size = Math.random() * 2 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            
+            // Random position
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            
+            // Random animation duration and delay
+            const duration = `${Math.random() * 3 + 2}s`;
+            const delay = `${Math.random() * 5}s`;
+            star.style.setProperty('--duration', duration);
+            star.style.setProperty('--delay', delay);
+            
+            starsContainer.appendChild(star);
+          }
+        }
+
+        // Hide loader when widget is loaded
+        const checkWidgetLoaded = setInterval(function() {
+          const widgetElement = document.querySelector('simli-widget');
+          if (widgetElement && widgetElement.shadowRoot) {
+            const avatarLoader = document.getElementById('avatarLoader');
+            if (avatarLoader) {
+              avatarLoader.style.display = 'none';
+            }
+            clearInterval(checkWidgetLoaded);
+          }
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Athena Rose AI - Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+
+    :root {
+      --primary-color: #9c27b0;
+      --secondary-color: #6a0dad;
+      --accent-color: #e040fb;
+      --text-color: #ffffff;
+      --dark-bg: rgba(0, 0, 0, 0.7);
+      --light-bg: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      color: var(--text-color);
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Cosmic Background Animation */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(125deg, #0d0221, #190b33, #2d1154, #41146b, #6a0dad);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      filter: blur(1px);
+      opacity: 0;
+      animation: twinkle var(--duration) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes cosmicPulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+    }
+
+    .cosmic-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224, 64, 251, 0.3) 0%, rgba(224, 64, 251, 0) 70%);
+      animation: cosmicPulse 8s infinite ease-in-out;
+    }
+
+    /* Header Styles */
+    header {
+      position: relative;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #e040fb, #9c27b0, #7b68ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.3rem 0;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Area */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    /* Gallery Page Specific Styles */
+    .page-title {
+      margin: 0.5rem auto 2rem;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #e040fb, #9c27b0, #7b68ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(156, 39, 176, 0.5);
+    }
+
+    .tab-container {
+      max-width: 1200px;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      border-radius: 50px;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .tab-button {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      padding: 0.8rem 2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .tab-button:hover {
+      color: var(--accent-color);
+    }
+
+    .tab-button.active {
+      background: linear-gradient(90deg, #9c27b0, #7b68ee);
+      color: white;
+      box-shadow: 0 0 15px rgba(224, 64, 251, 0.5);
+    }
+
+    .tab-content {
+      display: none;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 1200px;
+      padding: 1rem;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Gallery Grid Layout */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .gallery-item img {
+      max-width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+    }
+
+    .video-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .gallery-item video {
+      max-width: 100%;
+      max-height: 220px;
+      object-fit: contain;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+    }
+
+    .gallery-item:hover img, .gallery-item:hover video {
+      transform: scale(1.02);
+    }
+    
+    /* Modal/Lightbox styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      overflow: auto;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      max-width: 90%;
+      max-height: 90vh;
+      margin: auto;
+      display: block;
+    }
+    
+    .modal img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+    
+    .modal video {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 30px;
+      box-sizing: border-box;
+    }
+    
+    .modal-prev, .modal-next {
+      color: white;
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(156, 39, 176, 0.3), rgba(123, 104, 238, 0.3));
+      border: 2px dashed rgba(224, 64, 251, 0.5);
+    }
+
+    .placeholder i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    .placeholder-text {
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .upload-instructions {
+      margin: 2rem auto;
+      max-width: 600px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--accent-color);
+    }
+
+    .upload-instructions h3 {
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .upload-instructions p {
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .upload-instructions code {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    /* Footer Styles */
+    footer {
+      width: 100%;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      padding: 2rem 0 1rem;
+      z-index: 10;
+      flex-shrink: 0;
+      margin-top: auto;
+      position: relative;
+      bottom: 0;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .footer-section h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--light-bg);
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.5rem;
+      }
+
+      nav ul {
+        gap: 0.8rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      .tabs {
+        flex-direction: column;
+        width: 80%;
+      }
+
+      .tab-button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Main Content -->
+  <div id="main-content">
+    <!-- Background Animation -->
+    <div class="bg-animation">
+      <div class="stars" id="stars"></div>
+      <div class="cosmic-circle" style="width: 600px; height: 600px; top: 40%; left: 30%; animation-delay: 0s;"></div>
+      <div class="cosmic-circle" style="width: 400px; height: 400px; top: 60%; left: 70%; animation-delay: 2s;"></div>
+      <div class="cosmic-circle" style="width: 300px; height: 300px; top: 20%; left: 60%; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="header-container">
+        <div class="logo">
+          <div class="logo-text">Athena Rose AI</div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="#"><i class="fas fa-brain"></i> Experiences</a></li>
+            <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="#"><i class="fas fa-gem"></i> Premium</a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+      <h1 class="page-title">Entrancing Gallery</h1>
+      
+      <div class="tab-container">
+        <div class="tabs">
+          <button class="tab-button active" data-tab="images">Images</button>
+          <button class="tab-button" data-tab="videos">Videos</button>
+        </div>
+        
+        <!-- Images Tab -->
+        <div id="images" class="tab-content active">
+          <div class="gallery-grid">
+            <!-- Actual images from the images folder -->
+            <div class="gallery-item" data-type="image" data-src="images/20250519_243335335.png">
+              <img src="images/20250519_243335335.png" alt="Hypnotic Image 1">
+            </div>
+            <div class="gallery-item" data-type="image" data-src="images/20250519_243402380.png">
+              <img src="images/20250519_243402380.png" alt="Hypnotic Image 2">
+            </div>
+            <div class="gallery-item" data-type="image" data-src="images/A2.png">
+              <img src="images/A2.png" alt="Hypnotic Image 3">
+            </div>
+            <div class="gallery-item" data-type="image" data-src="images/Ath.png">
+              <img src="images/Ath.png" alt="Athena">
+            </div>
+            <div class="gallery-item" data-type="image" data-src="images/AVVpng.png">
+              <img src="images/AVVpng.png" alt="Avatar">
+            </div>
+            <div class="gallery-item" data-type="image" data-src="images/Picture2.png">
+              <img src="images/Picture2.png" alt="Hypnotic Image">
+            </div>
+            <div class="gallery-item" data-type="image" data-src="images/Pro1.png">
+              <img src="images/Pro1.png" alt="Profile 1">
+            </div>
+            <div class="gallery-item" data-type="image" data-src="images/Pro2.png">
+              <img src="images/Pro2.png" alt="Profile 2">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Videos Tab -->
+        <div id="videos" class="tab-content">
+          <div class="gallery-grid">
+            <!-- Actual videos from the videos folder -->
+            <div class="gallery-item" data-type="video" data-src="videos/Ethereal_entrancing_and_hypnotis.mp4">
+              <div class="video-container">
+                <video src="videos/Ethereal_entrancing_and_hypnotis.mp4" controls preload="metadata"></video>
+              </div>
+            </div>
+            <div class="gallery-item" data-type="video" data-src="videos/Professional_Mode_Etheral_magic_goddess_entrancing.mp4">
+              <div class="video-container">
+                <video src="videos/Professional_Mode_Etheral_magic_goddess_entrancing.mp4" controls preload="metadata"></video>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Upload Instructions -->
+        <div class="upload-instructions">
+          <h3>How to Add Your Content</h3>
+          <p>To add your own images and videos to this gallery:</p>
+          <p>1. Create an "images" folder and a "videos" folder in the same directory as this HTML file</p>
+          <p>2. Place your image files (JPG, PNG, GIF) in the "images" folder</p>
+          <p>3. Place your video files (MP4, WebM) in the "videos" folder</p>
+          <p>4. Replace the placeholder elements in this HTML file with actual media elements:</p>
+          <p>For images: <code>&lt;img src="images/your-image.jpg" alt="Description"&gt;</code></p>
+          <p>For videos: <code>&lt;video src="videos/your-video.mp4" controls&gt;&lt;/video&gt;</code></p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>Athena Rose AI</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-star"></i> Our Mission</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> About Us</a></li>
+            <li><a href="#"><i class="fas fa-newspaper"></i> Blog</a></li>
+            <li><a href="#"><i class="fas fa-headset"></i> Support</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>How To</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-book-open"></i> How to Use</a></li>
+            <li><a href="#"><i class="fas fa-question-circle"></i> FAQ</a></li>
+            <li><a href="#"><i class="fas fa-video"></i> Tutorials</a></li>
+            <li><a href="#"><i class="fas fa-lightbulb"></i> Tips & Tricks</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-gavel"></i> Terms of Service</a></li>
+            <li><a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+            <li><a href="#"><i class="fas fa-cookie"></i> Cookie Policy</a></li>
+            <li><a href="#"><i class="fas fa-balance-scale"></i> Legal Disclaimer</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Subscribe</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-gem"></i> Premium Features</a></li>
+            <li><a href="#"><i class="fas fa-credit-card"></i> Pricing Plans</a></li>
+            <li><a href="#"><i class="fas fa-gift"></i> Gift Cards</a></li>
+            <li><a href="#"><i class="fas fa-user-plus"></i> Refer a Friend</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Athena Rose AI. All rights reserved. Enter a state of deep relaxation.
+      </div>
+    </footer>
+  </div>
+
+  <!-- Modal/Lightbox for viewing media fullscreen -->
+  <div id="mediaModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <div class="modal-content">
+      <!-- Content will be dynamically inserted here -->
+    </div>
+    <div class="modal-nav">
+      <span class="modal-prev">&#10094;</span>
+      <span class="modal-next">&#10095;</span>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create stars dynamically
+      const starsContainer = document.getElementById('stars');
+      const starCount = 100;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random size between 1-3px
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        
+        // Random position
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration and delay
+        const duration = `${Math.random() * 3 + 2}s`;
+        const delay = `${Math.random() * 5}s`;
+        star.style.setProperty('--duration', duration);
+        star.style.setProperty('--delay', delay);
+        
+        starsContainer.appendChild(star);
+      }
+      
+      // Tab switching functionality
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons and contents
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Add active class to clicked button and corresponding content
+          button.classList.add('active');
+          document.getElementById(button.dataset.tab).classList.add('active');
+        });
+      });
+      
+      // Modal/Lightbox functionality
+      const modal = document.getElementById('mediaModal');
+      const modalContent = modal.querySelector('.modal-content');
+      const closeBtn = modal.querySelector('.close-modal');
+      const prevBtn = modal.querySelector('.modal-prev');
+      const nextBtn = modal.querySelector('.modal-next');
+      
+      // Array to store all gallery items
+      let galleryItems = [];
+      let currentItemIndex = 0;
+      
+      // Get all gallery items and add click events
+      function initGallery() {
+        galleryItems = document.querySelectorAll('.gallery-item');
+        
+        galleryItems.forEach((item, index) => {
+          item.addEventListener('click', () => {
+            openModal(item, index);
+          });
+        });
+      }
+      
+      // Initialize gallery
+      initGallery();
+      
+      // Open modal with appropriate content
+      function openModal(item, index) {
+        currentItemIndex = index;
+        const type = item.dataset.type;
+        const src = item.dataset.src;
+        
+        // Clear previous content
+        modalContent.innerHTML = '';
+        
+        if (type === 'image') {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = 'Fullscreen Image';
+          modalContent.appendChild(img);
+        } else if (type === 'video') {
+          const video = document.createElement('video');
+          video.src = src;
+          video.controls = true;
+          video.autoplay = true;
+          modalContent.appendChild(video);
+        }
+        
+        modal.style.display = 'flex';
+        
+        // Disable scrolling on the body
+        document.body.style.overflow = 'hidden';
+      }
+      
+      // Close modal
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      });
+      
+      // Navigate to previous item
+      prevBtn.addEventListener('click', () => {
+        currentItemIndex = (currentItemIndex - 1 + galleryItems.length) % galleryItems.length;
+        openModal(galleryItems[currentItemIndex], currentItemIndex);
+      });
+      
+      // Navigate to next item
+      nextBtn.addEventListener('click', () => {
+        currentItemIndex = (currentItemIndex + 1) % galleryItems.length;
+        openModal(galleryItems[currentItemIndex], currentItemIndex);
+      });
+      
+      // Close modal when clicking outside of content
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (modal.style.display === 'flex') {
+          if (e.key === 'Escape') {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          } else if (e.key === 'ArrowLeft') {
+            currentItemIndex = (currentItemIndex - 1 + galleryItems.length) % galleryItems.length;
+            openModal(galleryItems[currentItemIndex], currentItemIndex);
+          } else if (e.key === 'ArrowRight') {
+            currentItemIndex = (currentItemIndex + 1) % galleryItems.length;
+            openModal(galleryItems[currentItemIndex], currentItemIndex);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

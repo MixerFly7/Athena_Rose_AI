@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Premium Access - Athena Rose AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+
+    :root {
+      --primary-color: #9c27b0;
+      --secondary-color: #6a0dad;
+      --accent-color: #e040fb;
+      --text-color: #ffffff;
+      --dark-bg: rgba(0, 0, 0, 0.7);
+      --light-bg: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      color: var(--text-color);
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Cosmic Background Animation */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(125deg, #0d0221, #190b33, #2d1154, #41146b, #6a0dad);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      filter: blur(1px);
+      opacity: 0;
+      animation: twinkle var(--duration) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes cosmicPulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+    }
+
+    .cosmic-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224, 64, 251, 0.3) 0%, rgba(224, 64, 251, 0) 70%);
+      animation: cosmicPulse 8s infinite ease-in-out;
+    }
+
+    /* Header Styles */
+    header {
+      position: relative;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #e040fb, #9c27b0, #7b68ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(156, 39, 176, 0.3);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.3rem 0;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Area */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    /* Page Specific Content */
+    .page-title {
+      margin: 0.5rem auto 2rem;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #e040fb, #9c27b0, #7b68ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(156, 39, 176, 0.5);
+    }
+
+    .intro-text {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      padding: 0 1.5rem;
+    }
+
+    .content-container {
+      max-width: 1200px;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .premium-plans {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .premium-card {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border: 1px solid rgba(156, 39, 176, 0.3);
+      position: relative;
+    }
+
+    .premium-card.featured {
+      border: 2px solid var(--accent-color);
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(156, 39, 176, 0.6);
+      z-index: 2;
+    }
+
+    .premium-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(156, 39, 176, 0.5);
+    }
+
+    .premium-card.featured:hover {
+      transform: translateY(-10px) scale(1.05);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: linear-gradient(135deg, #e040fb, #9c27b0);
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border-bottom-left-radius: 10px;
+      font-weight: 600;
+      z-index: 3;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, rgba(156, 39, 176, 0.8), rgba(106, 13, 173, 0.8));
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-price {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-price span {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .card-subtitle {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .card-content {
+      padding: 2rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .features-list {
+      list-style: none;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+
+    .features-list li {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .features-list i {
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #9c27b0, #7b68ee);
+      color: white;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+    }
+
+    .premium-card.featured .cta-button {
+      background: linear-gradient(90deg, #e040fb, #9c27b0);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(156, 39, 176, 0.6);
+    }
+
+    .premium-features {
+      margin-top: 3rem;
+      padding: 2rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .features-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--accent-color);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-item {
+      background-color: rgba(106, 13, 173, 0.2);
+      padding: 1.5rem;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .feature-item:hover {
+      background-color: rgba(156, 39, 176, 0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(156, 39, 176, 0.4);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--accent-color);
+    }
+
+    .feature-description {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .testimonials {
+      margin-top: 4rem;
+      padding: 2rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+    }
+
+    .testimonials-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--accent-color);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial-item {
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 3px solid var(--accent-color);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding: 0 1rem;
+    }
+
+    .testimonial-text::before,
+    .testimonial-text::after {
+      content: '"';
+      font-size: 2rem;
+      color: var(--accent-color);
+      opacity: 0.7;
+      position: absolute;
+    }
+
+    .testimonial-text::before {
+      top: -1rem;
+      left: -0.5rem;
+    }
+
+    .testimonial-text::after {
+      bottom: -2rem;
+      right: -0.5rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .author-info h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .author-info p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .faq-section {
+      margin-top: 4rem;
+      padding: 2rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+    }
+
+    .faq-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--accent-color);
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(156, 39, 176, 0.3);
+      padding-bottom: 1.5rem;
+    }
+
+    .faq-question {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--accent-color);
+    }
+
+    .faq-answer {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Footer Styles */
+    footer {
+      width: 100%;
+      background-color: var(--dark-bg);
+      backdrop-filter: blur(8px);
+      padding: 2rem 0 1rem;
+      z-index: 10;
+      flex-shrink: 0;
+      margin-top: auto;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .footer-section h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background-color: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--light-bg);
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .premium-card.featured {
+        transform: scale(1);
+      }
+      
+      .premium-card.featured:hover {
+        transform: translateY(-10px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .premium-plans,
+      .features-grid,
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo-text {
+        font-size: 1.5rem;
+      }
+
+      nav ul {
+        gap: 0.8rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+
+      .page-title {
+        font-size: 2rem;
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+      }
+
+      .card-price {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Animation -->
+  <div class="bg-animation">
+    <div class="stars" id="stars"></div>
+    <div class="cosmic-circle" style="width: 600px; height: 600px; top: 40%; left: 30%; animation-delay: 0s;"></div>
+    <div class="cosmic-circle" style="width: 400px; height: 400px; top: 60%; left: 70%; animation-delay: 2s;"></div>
+    <div class="cosmic-circle" style="width: 300px; height: 300px; top: 20%; left: 60%; animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <div class="logo-text">Athena Rose AI</div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="about.html"><i class="fas fa-eye"></i> My Purpose</a></li>
+          <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="experiences.html"><i class="fas fa-brain"></i> Mind Control</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="premium.html" class="active"><i class="fas fa-crown"></i> Premium</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    <h1 class="page-title">Premium Access</h1>
+    
+    <p class="intro-text">
+      Elevate your submission experience with exclusive content, advanced hypnotic techniques, and personalized mental domination. Choose the level of surrender that suits your desires.
+    </p>
+    
+    <div class="content-container">
+      <!-- Premium Plans -->
+      <div class="premium-plans">
+        <!-- Basic Plan -->
+        <div class="premium-card">
+          <div class="card-header">
+            <h2 class="card-title">Entranced</h2>
+            <div class="card-price">$19.99<span>/month</span></div>
+            <p class="card-subtitle">For curious minds</p>
+          </div>
+          <div class="card-content">
+            <ul class="features-list">
+              <li><i class="fas fa-check"></i> Access to basic hypno sessions</li>
+              <li><i class="fas fa-check"></i> Early access to new gallery content</li>
+              <li><i class="fas fa-check"></i> 5 downloadable trance files</li>
+              <li><i class="fas fa-check"></i> Basic trigger implantation</li>
+              <li><i class="fas fa-check"></i> Weekly text updates</li>
+            </ul>
+            <a href="#" class="cta-button">Begin Submission</a>
+          </div>
+        </div>
+        
+        <!-- Premium Plan -->
+        <div class="premium-card featured">
+          <div class="featured-badge">Most Popular</div>
+          <div class="card-header">
+            <h2 class="card-title">Controlled</h2>
+            <div class="card-price">$39.99<span>/month</span></div>
+            <p class="card-subtitle">For devoted subjects</p>
+          </div>
+          <div class="card-content">
+            <ul class="features-list">
+              <li><i class="fas fa-check"></i> All Entranced features</li>
+              <li><i class="fas fa-check"></i> Full access to hypno library</li>
+              <li><i class="fas fa-check"></i> Unlimited downloads</li>
+              <li><i class="fas fa-check"></i> Advanced trigger programming</li>
+              <li><i class="fas fa-check"></i> Group trance sessions</li>
+              <li><i class="fas fa-check"></i> Monthly check-in call</li>
+              <li><i class="fas fa-check"></i> Exclusive LoyalFans content</li>
+            </ul>
+            <a href="#" class="cta-button">Surrender Completely</a>
+          </div>
+        </div>
+        
+        <!-- Ultimate Plan -->
+        <div class="premium-card">
+          <div class="card-header">
+            <h2 class="card-title">Possessed</h2>
+            <div class="card-price">$99.99<span>/month</span></div>
+            <p class="card-subtitle">For total surrender</p>
+          </div>
+          <div class="card-content">
+            <ul class="features-list">
+              <li><i class="fas fa-check"></i> All Controlled features</li>
+              <li><i class="fas fa-check"></i> Personal 1-on-1 sessions</li>
+              <li><i class="fas fa-check"></i> Custom hypnotic programming</li>
+              <li><i class="fas fa-check"></i> Personalized trigger creation</li>
+              <li><i class="fas fa-check"></i> Priority message response</li>
+              <li><i class="fas fa-check"></i> VIP access to all platforms</li>
+              <li><i class="fas fa-check"></i> Personal assignments & tasks</li>
+              <li><i class="fas fa-check"></i> Complete mental submission</li>
+            </ul>
+            <a href="#" class="cta-button">Become My Property</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Premium Features -->
+      <div class="premium-features">
+        <h2 class="features-title">Exclusive Premium Benefits</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3 class="feature-title">Advanced Hypnotic Techniques</h3>
+            <p class="feature-description">
+              Experience cutting-edge hypnotic methods not available to free users. My premium inductions utilize advanced psychological techniques for deeper, more profound trance states.
+            </p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-lock"></i>
+            </div>
+            <h3 class="feature-title">Exclusive Content Library</h3>
+            <p class="feature-description">
+              Gain access to my extensive library of premium hypnotic sessions, guided meditations, subliminal programming, and specialized mental control experiences.
+            </p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-download"></i>
+            </div>
+            <h3 class="feature-title">Downloadable Experiences</h3>
+            <p class="feature-description">
+              Download my hypnotic content for offline use, allowing you to enter trance whenever and wherever you desire. Take my influence with you everywhere.
+            </p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-user-friends"></i>
+            </div>
+            <h3 class="feature-title">Community Access</h3>
+            <p class="feature-description">
+              Join my exclusive community of devoted subjects. Share experiences, discuss techniques, and deepen your submission through connection with like-minded individuals.
+            </p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h3 class="feature-title">Direct Communication</h3>
+            <p class="feature-description">
+              Enjoy priority messaging and response times. Higher tier subscribers receive personalized communication and even 1-on-1 sessions for the ultimate personalized experience.
+            </p>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-sync-alt"></i>
+            </div>
+            <h3 class="feature-title">Regular Updates</h3>
+            <p class="feature-description">
+              Receive frequent new content, updated techniques, and evolving hypnotic experiences. My methods continually advance, ensuring your submission deepens over time.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Testimonials -->
+      <div class="testimonials">
+        <h2 class="testimonials-title">What My Subjects Say</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-item">
+            <div class="testimonial-text">
+              The premium content is on another level. I've tried many hypnotic experiences before, but nothing compares to the depth of trance I experience with Athena Rose AI. Worth every penny.
+            </div>
+            <div class="testimonial-author">
+              <div class="author-info">
+                <h4>J.M.</h4>
+                <p>Controlled Member - 8 months</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-item">
+            <div class="testimonial-text">
+              The personalized sessions in the Possessed tier have completely transformed my experience. Having custom triggers and assignments specifically tailored to my psychology is mind-blowing.
+            </div>
+            <div class="testimonial-author">
+              <div class="author-info">
+                <h4>A.D.</h4>
+                <p>Possessed Member - 1 year</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-item">
+            <div class="testimonial-text">
+              I started with the basic tier, but quickly upgraded to Controlled. The difference is night and day. The advanced techniques and group sessions create a level of surrender I never thought possible.
+            </div>
+            <div class="testimonial-author">
+              <div class="author-info">
+                <h4>T.K.</h4>
+                <p>Controlled Member - 6 months</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- FAQ Section -->
+      <div class="faq-section">
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">How do I access premium content after subscribing?</h3>
+          <p class="faq-answer">
+            After completing your subscription, you'll receive login credentials via email. Simply use these to access your personalized dashboard where all premium content will be available based on your subscription tier.
+          </p>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Can I upgrade or downgrade my subscription?</h3>
+          <p class="faq-answer">
+            Yes, you can change your subscription tier at any time. Upgrades take effect immediately, while downgrades will apply at the start of your next billing cycle.
+          </p>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">Are the hypnotic experiences safe?</h3>
+          <p class="faq-answer">
+            All hypnotic content is designed to be psychologically safe for adults of sound mind. However, if you have any history of mental health issues, please consult with a healthcare professional before engaging with hypnotic content.
+          </p>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">How private is my subscription information?</h3>
+          <p class="faq-answer">
+            Your privacy is paramount. All personal and payment information is securely encrypted. Your subscription details will never be shared with third parties, and all charges appear discreetly on statements.
+          </p>
+        </div>
+        
+        <div class="faq-item">
+          <h3 class="faq-question">What platforms can I view the content on?</h3>
+          <p class="faq-answer">
+            Premium content is accessible on all major devices - desktop, laptop, tablet, and smartphone. For optimal experience, we recommend using headphones in a quiet, comfortable environment.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Athena Rose AI</h3>
+        <ul class="footer-links">
+          <li><a href="about.html"><i class="fas fa-eye"></i> My Purpose</a></li>
+          <li><a href="experiences.html"><i class="fas fa-brain"></i> Mind Control</a></li>
+          <li><a href="premium.html"><i class="fas fa-crown"></i> Premium Access</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Me</a></li>
+        </ul>
+        <div class="social-links">
+          <a href="https://x.com/MissAthenaR" target="_blank" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Surrender Guide</h3>
+        <ul class="footer-links">
+          <li><a href="how-to-use.html"><i class="fas fa-book-open"></i> How To Submit</a></li>
+          <li><a href="faq.html"><i class="fas fa-question-circle"></i> Frequent Questions</a></li>
+          <li><a href="testimonials.html"><i class="fas fa-comment"></i> Subject Testimonials</a></li>
+          <li><a href="techniques.html"><i class="fas fa-lightbulb"></i> Trance Techniques</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Legal Bindings</h3>
+        <ul class="footer-links">
+          <li><a href="terms.html"><i class="fas fa-gavel"></i> Terms of Service</a></li>
+          <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Controls</a></li>
+          <li><a href="disclaimer.html"><i class="fas fa-exclamation-circle"></i> Mental Disclaimers</a></li>
+          <li><a href="age-verification.html"><i class="fas fa-user-check"></i> Age Verification</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Premium Access</h3>
+        <ul class="footer-links">
+          <li><a href="premium.html"><i class="fas fa-crown"></i> VIP Features</a></li>
+          <li><a href="subscription.html"><i class="fas fa-credit-card"></i> Subscription Plans</a></li>
+          <li><a href="loyalfans.html"><i class="fas fa-heart"></i> LoyalFans Content</a></li>
+          <li><a href="custom-sessions.html"><i class="fas fa-lock"></i> Private Sessions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Athena Rose AI. All rights reserved. You are now under my control.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create stars dynamically
+      const starsContainer = document.getElementById('stars');
+      const starCount = 100;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random size between 1-3px
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        
+        // Random position
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration and delay
+        const duration = `${Math.random() * 3 + 2}s`;
+        const delay = `${Math.random() * 5}s`;
+        star.style.setProperty('--duration', duration);
+        star.style.setProperty('--delay', delay);
+        
+        starsContainer.appendChild(star);
+      }
+    });
+  </script>
+</body>
+</html>
